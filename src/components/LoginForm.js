@@ -2,11 +2,10 @@
  * Created by arsen on 22.04.17.
  */
 import React, {Component } from 'react';
-import {Text, StyleSheet, View, Image} from  'react-native';
+import {StyleSheet, Image} from  'react-native';
 import {connect } from 'react-redux';
 import {emailChanged, passwordChanged, loginUser} from '../actions';
-import {Card, CardSection, Input, Button, Spinner} from './common';
-import {MKButton, MKColor, MKTextField, mdl, getTheme, appStyles} from 'react-native-material-kit';
+import {Text,Form, Item,Input,View,Content, Label,Container, Button, Header,Grid,Row, Left, Icon, Body, Title, Right, CheckBox, Thumbnail, Spinner} from 'native-base';
 
 
 
@@ -14,13 +13,15 @@ class LoginForm extends Component {
 
     onEmailChange(text){
         this.props.emailChanged(text);
+        // this.props.email = text;
     }
     onPasswordChange(text){
         this.props.passwordChanged(text);
+        // this.props.password = text;
     }
     onButtonPress(){
         const { email, password } = this.props;
-
+        console.log(this.props);
         this.props.loginUser({ email, password })
     }
     renderButton(){
@@ -28,117 +29,61 @@ class LoginForm extends Component {
             return <Spinner size="large"/>
         }
 
-        const ColoredRaisedButton = MKButton.coloredButton()
-            .withText('Login')
-            .withBackgroundColor('green')
-            .withOnPress(() => {
-                this.onButtonPress.bind(this);
-            })
-            .build();
         return (
-            <Button onPress={this.onButtonPress.bind(this)}  >
-                Login
+            <Button large full success onPress={this.onButtonPress.bind(this)}  >
+                <Text>Login</Text>
             </Button>
         );
     }
     render(){
 
-        /*
 
-
-         <Input label="Email"
-         placeholder="'email@gmail.com"
-         onChangeText={this.onEmailChange.bind(this)}
-         value={this.props.email}/>
-
-         <Input
-         secureTextEntry
-         label="Password"
-         placeholder="'password"
-         onChangeText={this.onPasswordChange.bind(this)}
-         value={this.props.password}
-         />
-
-         <Text style={styles.errorTextStyle}>
-         {this.props.error}
-         </Text>
-         */
-        const styles = Object.assign({}, appStyles, StyleSheet.create({
-            col: {
-                flex: 1,
-                flexDirection: 'column',
-                // alignItems: 'center', // this will prevent TFs from stretching horizontal
-                marginLeft: 7, marginRight: 7,
-                // backgroundColor: MKColor.Lime,
-            },
-            textfield: {
-                height: 28,  // have to do it on iOS
-                marginTop: 32,
-            },
-            textfieldWithFloatingLabel: {
-                height: 48,  // have to do it on iOS
-                marginTop: 10,
-            },
-        }));
-
-        const PasswordInput = mdl.Textfield.textfieldWithFloatingLabel()
-            .withPassword(true)
-            .withPlaceholder('Password')
-            .withHighlightColor(MKColor.Green)
-            .withStyle(styles.textfieldWithFloatingLabel)
-            .withOnTextChange((e) => console.log('TextChange', e))
-            .withOnChangeText((e) => console.log('ChangeText', e))
-            .build();
-
-        const Textfield = MKTextField.textfieldWithFloatingLabel()
-            .withPlaceholder('Email@gmail.com')
-            .withFloatingLabelFont({
-                fontSize: 10,
-                fontWeight: '200',
-            })
-            .withHighlightColor(MKColor.Green)
-            .withStyle(styles.textfieldWithFloatingLabel)
-            .withStyle(styles.textfield)
-            .build();
-
-        const ColoredRaisedButton = MKButton.coloredButton()
-            .withText('Login')
-            .withTextStyle({
-                color: 'white',
-                alignItems: 'center',
-                fontSize: 28
-            })
-            .withBackgroundColor('green')
-            .withOnPress(() => {
-                this.onButtonPress.bind(this);
-            })
-            .build();
         return(
-            <View>
-                <View style={{
-                    height: 150,
-                }}>
-                </View>
-                <Image
-                    style={{height: 200, borderRadius: 30}}
-                    source={{uri:'https://pp.userapi.com/c615720/v615720567/a5f6/HguQJqm8lI8.jpg'}}
-                />
-                <View style={{
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <Textfield style={{height: 100, width: 300}}/>
-                    <PasswordInput style={{height: 100, width: 300}}/>
+            <Container>
+                <Content>
+                    <View>
+                        <View style={{height: 100}}>
+                        </View>
+                            <View style={{alignItems: 'center'}} >
+                                <Image
+                                    style={{resizeMode:'contain', width: 500}}
+                                    source={require('../img/logo.png')}
+                                />
+                            </View>
+                        <Form>
+                            <View style={{left: 175, width: 250,}}>
+                                <Item floatingLabel highligh>
+                                    <Label>Email</Label>
+                                    <Input onChangeText={this.onEmailChange.bind(this)}
+                                           value={this.props.email}
+                                    />
+                                </Item>
+                            </View>
+                            <View style={{height: 25}}>
+                            </View>
+                            <View style={{left: 175, width: 250,}}>
+                                <Item floatingLabel>
+                                    <Label>Password</Label>
+                                    <Input defaultsecureTextEntry
+                                           onChangeText={this.onPasswordChange.bind(this)}
+                                           value={this.props.password}
+                                    />
+                                </Item>
+                            </View>
+                        </Form>
 
-                </View>
-                <View style={{
-                    width: 300,
-                    left: 150,
-                }}>
-                    <ColoredRaisedButton/>
-                </View>
-            </View>
+
+                        <Text style={styles.errorTextStyle}>
+                            {this.props.error}
+                        </Text>
+                        <View style={{height: 60}}>
+                        </View>
+                        <View style={{width: 250, height: 100, left: 175}}>
+                            {this.renderButton()}
+                        </View>
+                    </View>
+                </Content>
+            </Container>
         );
     }
 }

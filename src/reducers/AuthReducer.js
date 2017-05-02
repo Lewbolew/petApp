@@ -4,7 +4,8 @@
 import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGGING } from '../actions/types'
 
 const  INITIAL_STATE = {email: 'test@counter.test', password: '123456789', user: null, error: '', loading: false};
-
+//email: 'test@counter.test'
+//password: '123456789'
 export  default  (state = INITIAL_STATE, action) => {
     //console.log(action);
     switch (action.type){
