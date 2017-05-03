@@ -1,67 +1,87 @@
 /**
  * Created by arsen on 22.04.17.
  */
-import React, {Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Image} from  'react-native';
-import {connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {emailChanged, passwordChanged, loginUser} from '../actions';
-import {Text,Form, Item,Input,View,Content, Label,Container, Button, Header,Grid,Row, Left, Icon, Body, Title, Right, CheckBox, Thumbnail, Spinner} from 'native-base';
-
+import {
+    Text,
+    Form,
+    Item,
+    Input,
+    View,
+    Content,
+    Label,
+    Container,
+    Button,
+    Header,
+    Grid,
+    Row,
+    Left,
+    Icon,
+    Body,
+    Title,
+    Right,
+    CheckBox,
+    Thumbnail,
+    Spinner
+} from 'native-base';
 
 
 class LoginForm extends Component {
 
-    onEmailChange(text){
+    onEmailChange(text) {
         this.props.emailChanged(text);
         // this.props.email = text;
     }
-    onPasswordChange(text){
+
+    onPasswordChange(text) {
         this.props.passwordChanged(text);
         // this.props.password = text;
     }
-    onButtonPress(){
-        const { email, password } = this.props;
+
+    onButtonPress() {
+        const {email, password} = this.props;
         console.log(this.props);
-        this.props.loginUser({ email, password })
+        this.props.loginUser({email, password})
     }
-    renderButton(){
-        if(this.props.loading){
+
+    renderButton() {
+        if (this.props.loading) {
             return <Spinner size="large"/>
         }
 
         return (
-            <Button large full success onPress={this.onButtonPress.bind(this)}  >
+            <Button large full success onPress={this.onButtonPress.bind(this)}>
                 <Text>Login</Text>
             </Button>
         );
     }
-    render(){
+
+    render() {
 
 
-        return(
+        return (
             <Container>
-                <Content>
-                    <View>
-                        <View style={{height: 100}}>
+                <Content style={{paddingTop: 70}}>
+                    <View style={{paddingLeft: 120, paddingRight: 120}}>
+                        <View style={{alignItems: 'center'}} >
+                        <Image
+                        style={{resizeMode:'contain', width: 500}}
+                        source={require('../img/logo.png')}
+                        />
                         </View>
-                            <View style={{alignItems: 'center'}} >
-                                <Image
-                                    style={{resizeMode:'contain', width: 500}}
-                                    source={require('../img/logo.png')}
-                                />
-                            </View>
                         <Form>
-                            <View style={{left: 175, width: 250,}}>
-                                <Item floatingLabel highligh>
-                                    <Label>Email</Label>
-                                    <Input onChangeText={this.onEmailChange.bind(this)}
-                                           value={this.props.email}
-                                    />
-                                </Item>
-                            </View>
-                            <View style={{height: 25}}>
-                            </View>
-                            <View style={{left: 175, width: 250,}}>
+                                <View>
+                                    <Item floatingLabel highligh>
+                                        <Label>Email</Label>
+                                        <Input onChangeText={this.onEmailChange.bind(this)}
+                                               value={this.props.email}
+                                        />
+                                    </Item>
+                                </View>
+                            <View>
                                 <Item floatingLabel>
                                     <Label>Password</Label>
                                     <Input defaultsecureTextEntry
@@ -70,33 +90,32 @@ class LoginForm extends Component {
                                     />
                                 </Item>
                             </View>
+                            <View style={{paddingTop: 40}}>
+                                {this.renderButton()}
+                            </View>
                         </Form>
 
 
                         <Text style={styles.errorTextStyle}>
                             {this.props.error}
                         </Text>
-                        <View style={{height: 60}}>
-                        </View>
-                        <View style={{width: 250, height: 100, left: 175}}>
-                            {this.renderButton()}
-                        </View>
+
                     </View>
                 </Content>
             </Container>
         );
     }
 }
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({auth}) => {
     const {email, password, error, loading} = auth;
     return {email, password, error, loading}
 };
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
     errorTextStyle: {
-        fontSize:50,
+        fontSize: 50,
         alignSelf: 'center',
         color: 'red'
     }
 });
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);
+export default connect(mapStateToProps, {emailChanged, passwordChanged, loginUser})(LoginForm);

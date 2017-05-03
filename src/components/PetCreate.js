@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { petUpdate, petCreate } from '../actions';
-import {CardItem, Body, Card, Content, Container, Item,Input, Button, Text, View, Separator, Radio, ListItem, CheckBox} from 'native-base'
+import {CardItem, Body, Card, Content,Badge, Icon, Left, Container, Item,Input, Button, Right, Text, View, Separator, Radio, ListItem, CheckBox} from 'native-base'
     ;
 class PetCreate extends Component {
     onButtonPress() {
@@ -14,30 +14,58 @@ class PetCreate extends Component {
 
             <Container>
                 <Content>
-                    <Card>
-                    <Item underline>
-                    <Input
-                        placeholder="Name"
-                        value={this.props.name}
+                    <Badge danger>
+                        <Icon name="star" />
+                    </Badge>
+                    <ListItem>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                        }}>
+                            <Radio selected={false} />
+                            <Text style={{paddingLeft: 15}}>Male</Text>
+                            <Radio style={{paddingLeft: 100}} selected={false} />
+                            <Text style={{paddingLeft: 15}}>Female</Text>
 
-                        onChangeText={value => this.props.petUpdate({prop: 'name', value})
-                        }/>
-                    </Item>
-                    <Input label = "Phone" placeholder="555-555-5555"  value={this.props.phone}
-                           onChangeText={value => this.props.petUpdate({prop: 'phone', value})
-                           }/>
+                        </View>
+                    </ListItem>
 
+                    <ListItem>
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                    }}>
+                            <Radio selected={false} />
+                            <Text style={{paddingLeft: 15}}>Dog</Text>
+                                <Radio style={{paddingLeft: 108}} selected={false} />
+                                <Text>   Cat</Text>
 
+                    </View>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={false} />
+                        <Text style={{paddingLeft: 15}}>Puppy</Text>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={false} />
+                        <Text style={{paddingLeft: 15}}>Sterilized</Text>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={false} />
+                        <Text style={{paddingLeft: 15}}>Proprietary</Text>
+                    </ListItem>
                     <Separator bordered style={{height: 60}}>
                         <Text style={{fontSize: 15, color: 'grey'}}>MOTHERHOOD</Text>
                     </Separator>
                     <ListItem>
                         <Radio/>
-                        <Text>   Pregnant</Text>
+                        <Text style={{paddingLeft: 15}}>Pregnant</Text>
                     </ListItem>
                     <ListItem>
                         <Radio/>
-                        <Text>   Feeding</Text>
+                        <Text style={{paddingLeft: 15}}>Feeding</Text>
                     </ListItem>
 
                     <Separator bordered style={{height: 60}}>
@@ -45,12 +73,12 @@ class PetCreate extends Component {
                     </Separator>
                     <ListItem>
                         <CheckBox checked={false} />
-                        <Text>   Skin</Text>
+                        <Text style={{paddingLeft: 15}}>Skin</Text>
                     </ListItem>
 
                     <ListItem>
                         <CheckBox checked={false} />
-                        <Text>   Lame</Text>
+                        <Text style={{paddingLeft: 15}}>Lame</Text>
                     </ListItem>
 
                     <Separator bordered style={{height: 60}}>
@@ -58,27 +86,27 @@ class PetCreate extends Component {
                     </Separator>
                         <ListItem>
                             <Radio selected={false}/>
-                            <Text>   Exhausted</Text>
+                            <Text style={{paddingLeft: 15}}>Exhausted</Text>
                         </ListItem>
 
                         <ListItem>
                             <Radio selected={false} />
-                            <Text>   Thin</Text>
+                            <Text style={{paddingLeft: 15}}>Thin</Text>
                         </ListItem>
 
                         <ListItem>
                             <Radio selected={true} />
-                            <Text>   Normal</Text>
+                            <Text style={{paddingLeft: 15}}>Normal</Text>
                         </ListItem>
 
                         <ListItem>
                             <Radio selected={false} />
-                            <Text>   Fat</Text>
+                            <Text style={{paddingLeft: 15}}>Fat</Text>
                         </ListItem>
 
                         <ListItem>
                             <Radio selected={false} />
-                            <Text>   Adiposity</Text>
+                            <Text style={{paddingLeft: 15}}>Adiposity</Text>
                         </ListItem>
 
                         <Item underline style={{height: 70}}>
@@ -118,25 +146,25 @@ class PetCreate extends Component {
                     </Separator>
                     <ListItem>
                         <Radio selected={false} />
-                        <Text>   Small (up to 45cm)</Text>
+                        <Text style={{paddingLeft: 15}}>Small (up to 45cm)</Text>
                     </ListItem>
 
                     <ListItem>
                         <Radio selected={false} />
-                        <Text>   Medium (45cm-65cm)</Text>
+                        <Text style={{paddingLeft: 15}}>Medium (45cm-65cm)</Text>
                     </ListItem>
 
                     <ListItem>
                         <Radio selected={false} />
-                        <Text>   Large (from 65cm)</Text>
+                        <Text style={{paddingLeft: 15}}>Large (from 65cm)</Text>
                     </ListItem>
 
-                    <Separator bordered>
+                    <Separator style={{height: 50}} bordered>
                     </Separator>
                     <Button block large danger onPress={this.onButtonPress.bind(this)}>
                         <Text style={{fontSize: 20}}> Register</Text>
                     </Button>
-                    </Card>
+
                 </Content>
             </Container>
 
