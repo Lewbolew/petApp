@@ -14,9 +14,7 @@ class PetCreate extends Component {
 
             <Container>
                 <Content>
-                    <Badge danger>
-                        <Icon name="star" />
-                    </Badge>
+  
                     <ListItem>
                         <View style={{
                             flex: 1,
