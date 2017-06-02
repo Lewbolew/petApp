@@ -67,20 +67,20 @@ class LoginForm extends Component {
                 <Content style={{paddingTop: 70}}>
                     <View style={{paddingLeft: 120, paddingRight: 120}}>
                         <View style={{alignItems: 'center'}} >
-                        <Image
-                        style={{resizeMode:'contain', width: 500}}
-                        source={require('../img/logo.png')}
-                        />
+                            <Image
+                                style={{resizeMode:'contain', width: 500}}
+                                source={require('../img/logo.png')}
+                            />
                         </View>
                         <Form>
-                                <View>
-                                    <Item floatingLabel highligh>
-                                        <Label>Email</Label>
-                                        <Input onChangeText={this.onEmailChange.bind(this)}
-                                               value={this.props.email}
-                                        />
-                                    </Item>
-                                </View>
+                            <View>
+                                <Item floatingLabel highligh>
+                                    <Label>Email</Label>
+                                    <Input onChangeText={this.onEmailChange.bind(this)}
+                                           value={this.props.email}
+                                    />
+                                </Item>
+                            </View>
                             <View>
                                 <Item floatingLabel>
                                     <Label>Password</Label>

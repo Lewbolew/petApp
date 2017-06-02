@@ -29,7 +29,7 @@ class ListItem extends Component {
                             }}>
                                 <Text style={{fontWeight: 'bold', color: 'grey'}}>Registration</Text>
                                 <Text style={{fontWeight: 'bold', color: 'grey'}}>Sex</Text>
-                                <Text style={{fontWeight: 'bold', color: 'grey'}}>Transponder</Text>
+                                <Text style={{fontWeight: 'bold', color: 'grey'}}>ID</Text>
                             </View>
                             <View style={{
                                 flexDirection: 'column',

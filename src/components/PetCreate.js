@@ -85,11 +85,11 @@ class PetCreate extends Component {
                         </Text>
                     </View>
                     <ListItem>
-                    <View style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                    }}>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                        }}>
                             <Radio selected={this.props.sex === 'male'}
                                    onPress={() => this.props.petUpdate({prop: 'sex', value: 'male'})}
                             />
@@ -97,7 +97,7 @@ class PetCreate extends Component {
                             <Radio selected={this.props.sex === 'male'}
                                    onPress={() => this.props.petUpdate({prop: 'sex', value: 'female'})}/>
                             <Text style={{paddingLeft: 15}}>Female</Text>
-                    </View>
+                        </View>
                     </ListItem>
                     <ListItem>
                         <View style={{
