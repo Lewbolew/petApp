@@ -50,6 +50,30 @@ class PetCreate extends Component {
         lastPosition: 'unknown',
     };
 
+    floatParser(str) {
+        a = this.state.lastPosition.substr(this.state.lastPosition.search('longitude'), this.state.lastPosition.search('longitude') +8)
+        return a;
+    }
+    constructor(props) {
+        super(props);
+        this.props = {
+            sex: null,
+            catOrDog: null,
+            motherhood: null,
+            healthCondition: null,
+            size: 'small',
+            additionalFeatures: {
+                puppy: false,
+                sterilized: false,
+                proprietary: false
+            },
+            problems: [],
+            breed: null,
+            puppy: false,
+
+        };
+    }
+
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -81,7 +105,7 @@ class PetCreate extends Component {
                     <View>
                         <Text>
                             <Text style={styles.title}>Current position: </Text>
-                            {this.state.lastPosition}
+                            {this.floatParser(this.state.lastPosition)}
                         </Text>
                     </View>
                     <ListItem>
@@ -241,9 +265,9 @@ class PetCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const {name, phone, shift} = state.petForm;
+    const {name, phone, shift, sex, catOrDog, motherhood, healthCondition, size, additionalFeatures, problems, puppy} = state.petForm;
     const user = state.auth.user;
-    return {user, name, phone, shift};
+    return {user, name, phone, shift, sex, catOrDog, motherhood, healthCondition, size, additionalFeatures, problems, puppy};
 };
 
 var styles = StyleSheet.create({
