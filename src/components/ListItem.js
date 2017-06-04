@@ -17,7 +17,7 @@ class ListItem extends Component {
                         <View style={{
                             flex: 1, flexDirection: 'row',
                         }}>
-                            <View style={{heigth: 70, width: 70}}>
+                            <View style={{height: 70, width: 70}}>
                                 <Image style={{height: 70, width: 70}}
                                        source={require('../img/dog-icon.png')}/>
 
@@ -29,7 +29,7 @@ class ListItem extends Component {
                             }}>
                                 <Text style={{fontWeight: 'bold', color: 'grey'}}>Registration</Text>
                                 <Text style={{fontWeight: 'bold', color: 'grey'}}>Sex</Text>
-                                <Text style={{fontWeight: 'bold', color: 'grey'}}>Transponder</Text>
+                                <Text style={{fontWeight: 'bold', color: 'grey'}}>ID</Text>
                             </View>
                             <View style={{
                                 flexDirection: 'column',
