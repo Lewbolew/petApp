@@ -42,8 +42,12 @@ module.exports = StyleSheet.create({
         fontWeight: '300',
     },
     textStyle: {
-            fontWeight: 'bold',
-            color:'grey'
-        },
+        fontWeight: 'bold',
+        color:'grey'
+    },
+    title: {
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
 });
 

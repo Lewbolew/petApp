@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {petUpdate, petCreate} from '../actions';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import CheckBox from 'react-native-check-box'
 import {
     CardItem,
     Body,
@@ -22,9 +21,10 @@ import {
     Separator,
     Radio,
     ListItem,
-    //CheckBox
-} from 'native-base'
-    ;
+    CheckBox
+} from 'native-base';
+import myTheme from '../Themes/myTheme.js';
+var Camera = require('react-native-camera-android');
 
 //-------------------------------------------------------------------
 
@@ -50,12 +50,26 @@ class PetCreate extends Component {
     state = {
         initialPosition: 'unknown',
         lastPosition: 'unknown',
+        longitude: 'lon',
+        latitude: 'lat',
+        sex: 'Male',
+        animal: 'Dog',
+        //additional: new JSON{},
+        motherhood: 'Pregnant',
+        healthConditione: 'Normal',
+        size: 'Small',
+        puppy: false, 
+        sterilized: false,
+        proprietary: false,
+        skin: false,
+        lame: false,
+        Breed: '',
+        Alias: '',
+        Color: ''
+        
+
     };
 
-    floatParser(str) {
-        a = this.state.lastPosition.substr(this.state.lastPosition.search('longitude'), this.state.lastPosition.search('longitude') +8)
-        return a;
-    }
     constructor(props) {
         super(props);
         this.props = {
@@ -82,12 +96,14 @@ class PetCreate extends Component {
                 var initialPosition = JSON.stringify(position);
                 this.setState({initialPosition});
             },
-            (error) => alert(JSON.stringify(error)),
+            (error) => 1,//alert(JSON.stringify(error)),
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
         this.watchID = navigator.geolocation.watchPosition((position) => {
-            var lastPosition = JSON.stringify(position);
-            this.setState({lastPosition});
+            var longitude = position.coords.longitude;
+            this.setState({longitude});
+            var latitude = position.coords.latitude;
+            this.setState({latitude});
         });
     }
 
@@ -101,103 +117,55 @@ class PetCreate extends Component {
     }
 
     render() {
+        var {height, width} = Dimensions.get('window'); 
         return (
-            <Container>
-                <Content>
-                    {/*<View>
-                        <Text>
-                            <Text style={styles.title}>Current position: </Text>
-                            {this.floatParser(this.state.lastPosition)}
-                        </Text>
-                    </View>*/}
-                    <ListItem>
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                        }}
-                            <RadioForm
-                                radio_props={[
-                                    {label: 'Male', value: 0 },
-                                    {label: 'Female', value: 1 }
-                                ]}
-                                initial = {0}
-                                formHorizontal={true}
-                                labelWrapStyle={{
-                                    padding: 50
-                                }}
-                                labelStyle={{fontSize: 15}}
-                                buttonSize={10}
-                                buttonOuterSize={20}
-                                borderWidth={1}
-                                onPress={(value) => {this.setState({value:value})}}
-                                buttonWrapStyle={{marginLeft: 30}}
-
-                            />
-                        </View>
-                    </ListItem>
-                    <ListItem>
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                        }}>
-                            <RadioForm
-                              radio_props={[
-                                  {label: 'Dog', value: 0 },
-                                  {label: 'Cat', value: 1 }
-                                ]}
-                                initial = {0}
-                              formHorizontal={true}
-                                labelStyle={{fontSize: 15}}
-                                buttonSize={10}
-                                buttonOuterSize={20}
-                                borderWidth={1}
-                              onPress={(value) => {this.setState({value:value})}}
-                              buttonWrapStyle={{marginLeft: 0}}
-
-                            />
-                        </View>
-                    </ListItem>
-
-                    <ListItem>
-                        <CheckBox
-                            style={{flex: 1}}
-                            onClick={()=>console.log("Puppy")}
-                            isChecked={false}
-                            rightTextStyle={{
-                                fontSize: 15,
-                                color: "black"
-                            }}
-                            rightText={"Puppy"}
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <CheckBox
-                            style={{flex: 1}}
-                            onClick={()=>console.log("Puppy")}
-                            isChecked={false}
-                            rightTextStyle={{
-                                fontSize: 15,
-                                color: "black"
-                            }}
-                            rightText={"Sterilized"}
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <CheckBox
-                            style={{flex: 1}}
-                            onClick={()=>console.log("Puppy")}
-                            isChecked={false}
-                            rightTextStyle={{
-                                fontSize: 15,
-                                color: "black"
-                            }}
-                            rightText={"Proprietary"}
-                        />
-                    </ListItem>
+            <Container style={{
+                marginTop: 0,
+                backgroundColor:'#ebeef0',
+            }}>
+                <Content style={{
+                    backgroundColor:'#fff',
+                    width: Math.min(width, 300),
+                    marginLeft: (width - Math.min(width, 300))/2
+                }} showsVerticalScrollIndicator={false}   >
+                    
                     <Separator bordered style={{height: 60}}>
-                        <Text style={{fontSize: 15, color: 'grey'}}>MOTHERHOOD</Text>
+                        <Text style={{fontSize: 15, color: 'grey'}}>COORDINATES</Text>
+                    </Separator>
+
+                    <ListItem>
+                        <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}>
+
+                            <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                borderRightWidth: 1
+                            }}>
+                                <Text style={{paddingLeft: 30}}>
+                                    {
+                                        this.state.longitude != "lon" ? (Math.round(this.state.longitude * 1000) / 1000) : "lon"
+                                    }
+                                </Text>
+                            </View>
+                           <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}>
+                                <Text style={{paddingLeft: 30}}>
+                                    {
+                                        this.state.latitude != "lat" ? (Math.round(this.state.latitude * 1000) / 1000) : "lat"
+                                    }
+                                </Text>
+                            </View>
+                        </View>
+                    </ListItem>
+                    <Separator bordered style={{height: 20}}>
                     </Separator>
                     <ListItem>
                         <View style={{
@@ -205,19 +173,106 @@ class PetCreate extends Component {
                             flexDirection: 'row',
                             justifyContent: 'flex-start',
                         }}>
-                            <RadioForm
-                                radio_props={[
-                                  {label: 'Pregnant', value: 0 },
-                                  {label: 'Feeding', value: 1 }
-                                ]}
-                                formHorizontal={false}
-                                labelStyle={{fontSize: 15}}
-                                buttonSize={10}
-                                buttonOuterSize={20}
-                                labelWrapStyle={{paddingBottom:10}}
-                                borderWidth={1}
-                                onPress={(value) => {this.setState({value:value})}}
-                            />
+
+                            <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}>
+                                <Radio selected={ this.state.sex === 'Male' }  
+                                    theme={myTheme}
+                                    onPress={(value) => {this.setState({sex:'Male'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Male</Text>
+                            </View>
+                           <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}>
+                                <Radio selected={ this.state.sex === 'Female' }
+                                      onPress={(value) => {this.setState({sex:'Female'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Female</Text>
+                            </View>
+                        </View>
+                    </ListItem>
+                    <ListItem>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                        }}>
+
+                            <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start', 
+                            }}>
+                                <Radio selected={ this.state.animal === 'Dog' }      
+                                        onPress={(value) => {this.setState({animal:'Dog'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Dog</Text>
+                            </View>
+                           <View style={{
+                                flex: 0.5,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}>
+                                <Radio selected={ this.state.animal === 'Cat' }
+                                      onPress={(value) => {this.setState({animal:'Cat'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Cat</Text>
+                            </View>
+                        </View>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={this.state.puppy} 
+                                onPress={(value) => {this.setState({puppy:!this.state.puppy}) } }/>
+                        <Body>
+                            <Text>Puppy</Text>
+                        </Body>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={this.state.sterilized} 
+                                onPress={(value) => {this.setState({sterilized:!this.state.sterilized}) } }/>
+                        <Body>
+                            <Text>Sterilized</Text>
+                        </Body>
+                    </ListItem>
+                    <ListItem>
+                        <CheckBox checked={this.state.proprietary} 
+                                onPress={(value) => {this.setState({proprietary:!this.state.proprietary}) } }/>
+                        <Body>
+                            <Text>Proprietary</Text>
+                        </Body>
+                    </ListItem>
+                    <Separator bordered style={{height: 60}}>
+                        <Text style={{fontSize: 15, color: 'grey'}}>MOTHERHOOD</Text>
+                    </Separator>
+                    <ListItem>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'column',
+                            justifyContent: 'flex-start',
+                        }}>
+
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.motherhood === 'Pregnant' }      
+                                        onPress={(value) => {this.setState({motherhood:'Pregnant'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Pregnant</Text>
+                            </View>
+                           <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                            }}>
+                                <Radio selected={ this.state.motherhood === 'Feeding' }
+                                        onPress={(value) => {this.setState({motherhood:'Feeding'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Feeding</Text>
+                            </View>
                         </View>
                     </ListItem>
 
@@ -226,60 +281,86 @@ class PetCreate extends Component {
                     </Separator>
 
                     <ListItem>
-                        <CheckBox
-                            style={{flex: 1}}
-                            onClick={()=>console.log("Puppy")}
-                            isChecked={false}
-                            rightTextStyle={{
-                                fontSize: 15,
-                                color: "black"
-                            }}
-                            rightText={"Skin"}
-                        />
+                        <CheckBox checked={this.state.skin} 
+                                onPress={(value) => {this.setState({skin:!this.state.skin}) } }/>
+                        <Body>
+                            <Text>Skin</Text>
+                        </Body>
                     </ListItem>
                     <ListItem>
-                        <CheckBox
-                            style={{flex: 1}}
-                            onClick={()=>console.log("Puppy")}
-                            isChecked={false}
-                            rightTextStyle={{
-                                fontSize: 15,
-                                color: "black"
-                            }}
-                            rightText={"Lame"}
-                        />
+                        <CheckBox checked={this.state.lame} 
+                                onPress={(value) => {this.setState({lame:!this.state.lame}) } } />
+                        <Body>
+                            <Text>Lame</Text>
+                        </Body>
                     </ListItem>
-
+                    
                     <Separator bordered style={{height: 60}}>
                         <Text style={{fontSize: 15, color: 'grey'}}>HEALTH CONDITION</Text>
                     </Separator>
-
                     <ListItem>
                         <View style={{
                             flex: 1,
-                            flexDirection: 'row',
+                            flexDirection: 'column',
                             justifyContent: 'flex-start',
                         }}>
-                            <RadioForm
-                              radio_props={[
-                                  {label: 'Exhausted', value: 0 },
-                                  {label: 'Thin', value: 1 },
-                                  {label: 'Normal', value: 2 },
-                                  {label: 'Fat', value: 3 },
-                                  {label: 'Adiposity', value: 4 }
-                                ]}
 
-                              initial={2}
-                              formHorizontal={false}
-                                labelStyle={{fontSize: 15}}
-                                buttonSize={10}
-                                buttonOuterSize={20}
-                                borderWidth={1}
-                                onPress={(value) => {this.setState({value:value})}}
-                            />
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.healthConditione === 'Exhausted' }      
+                                        onPress={(value) => {this.setState({healthConditione:'Exhausted'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Exhausted</Text>
+                            </View>
+                           <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.healthConditione === 'Thin' }
+                                      onPress={(value) => {this.setState({healthConditione:'Thin'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Thin</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.healthConditione === 'Normal' }      
+                                        onPress={(value) => {this.setState({healthConditione:'Normal'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Normal</Text>
+                            </View>
+                           <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.healthConditione === 'Fat' }
+                                      onPress={(value) => {this.setState({healthConditione:'Fat'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Fat</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8
+                            }}>
+                                <Radio selected={ this.state.healthConditione === 'Adiposity' }      
+                                        onPress={(value) => {this.setState({healthConditione:'Adiposity'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Adiposity</Text>
+                            </View>
                         </View>
                     </ListItem>
-
+                    
                     <Item underline style={{height: 60}}>
                         <Input
                             placeholder="Breed"
@@ -304,45 +385,56 @@ class PetCreate extends Component {
                             onChangeText={value => this.props.petUpdate({prop: 'color', value})
                             }/>
                     </Item>
-                    <Item underline style={{height: 60}}>
-                        <Input
-                            placeholder="Birth date"
-                            value={this.props.birth}
-
-                            onChangeText={value => this.props.petUpdate({prop: 'birth', value})
-                            }/>
-                    </Item>
                     <Separator bordered style={{height: 60}}>
                         <Text style={{fontSize: 15, color: 'grey'}}>ANIMAL SIZE</Text>
                     </Separator>
+
                     <ListItem>
                         <View style={{
                             flex: 1,
-                            flexDirection: 'row',
+                            flexDirection: 'column',
                             justifyContent: 'flex-start',
                         }}>
-                            <RadioForm
-                              radio_props={[
-                                  {label: 'Small (up to 45cm)', value: 0 },
-                                  {label: 'Medium (45cm-65cm)', value: 1 },
-                                  {label: 'Large (from 65cm)', value: 2 }
-                                ]}
-                              initial={1}
-                              formHorizontal={false}
-                                labelStyle={{fontSize: 15}}
-                                buttonSize={10}
-                                buttonOuterSize={20}
-                                borderWidth={1}
-                                onPress={(value) => {this.setState({value:value})}}
-                            />
+
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.size === 'Small' }      
+                                        onPress={(value) => {this.setState({size:'Small'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Small (up to 45cm)</Text>
+                            </View>
+                           <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.size === 'Medium' }
+                                      onPress={(value) => {this.setState({size:'Medium'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Medium (45cm-65cm)</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingTop: 8,
+                                paddingBottom: 8
+                            }}>
+                                <Radio selected={ this.state.size === 'Large' }      
+                                        onPress={(value) => {this.setState({healthConditione:'Large'}) } }/>
+                                <Text style={{paddingLeft: 20}}>Large (from 65cm)</Text>
+                            </View>
                         </View>
                     </ListItem>
-                    <Separator style={{height: 50}} bordered>
+                    <Separator bordered style={{height: 40}}>
                     </Separator>
-                    <Button block large danger onPress={this.onButtonPress.bind(this)}>
+                    <Button block large success onPress={this.onButtonPress.bind(this)}>
                         <Text style={{fontSize: 20}}> Register</Text>
                     </Button>
-
                 </Content>
             </Container>
 

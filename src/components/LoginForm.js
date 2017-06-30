@@ -2,7 +2,7 @@
  * Created by arsen on 22.04.17.
  */
 import React, {Component} from 'react';
-import {StyleSheet, Image} from  'react-native';
+import {StyleSheet, Image, Dimensions} from  'react-native';
 import {connect} from 'react-redux';
 import {emailChanged, passwordChanged, loginUser} from '../actions';
 import {
@@ -61,14 +61,14 @@ class LoginForm extends Component {
 
     render() {
 
-
+        var {height, width} = Dimensions.get('window');
         return (
             <Container>
-                <Content style={{paddingTop: 70}}>
-                    <View style={{paddingLeft: 120, paddingRight: 120}}>
+                <Content style={{paddingTop: 30}}>
+                    <View style={{paddingLeft: 50, paddingRight: 50}}>
                         <View style={{alignItems: 'center'}} >
                             <Image
-                                style={{resizeMode:'contain', width: 500}}
+                                style={{resizeMode:'contain', width: Math.min(width-100, 500)}}
                                 source={require('../img/logo.png')}
                             />
                         </View>
