@@ -84,7 +84,7 @@ class LoginForm extends Component {
                             <View>
                                 <Item floatingLabel>
                                     <Label>Password</Label>
-                                    <Input defaultsecureTextEntry
+                                    <Input secureTextEntry={true}
                                            onChangeText={this.onPasswordChange.bind(this)}
                                            value={this.props.password}
                                     />

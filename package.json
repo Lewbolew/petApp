@@ -14,7 +14,7 @@
     "native-base": "^2.1.4",
     "react": "16.0.0-alpha.6",
     "react-dom": "~15.4.0",
-    "react-native": "0.43.3",
+    "react-native": "0.44.0",
     "react-native-elements": "^0.10.3",
     "react-native-camera-android": "^1.0.7",
     "react-native-check-box": "^1.0.4",

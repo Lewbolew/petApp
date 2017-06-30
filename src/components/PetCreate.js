@@ -23,8 +23,8 @@ import {
     ListItem,
     CheckBox
 } from 'native-base';
-import myTheme from '../Themes/myTheme.js';
-var Camera = require('react-native-camera-android');
+//import myTheme from '../Themes/myTheme.js';
+//var Camera = require('react-native-camera-android');
 
 //-------------------------------------------------------------------
 
@@ -54,7 +54,6 @@ class PetCreate extends Component {
         latitude: 'lat',
         sex: 'Male',
         animal: 'Dog',
-        //additional: new JSON{},
         motherhood: 'Pregnant',
         healthConditione: 'Normal',
         size: 'Small',
@@ -112,8 +111,8 @@ class PetCreate extends Component {
     }
 
     onButtonPress() {
-        const {user, name, phone, shift, breed, alias, color, birth, sex} = this.props;
-        this.props.petCreate({user, name, phone, breed, alias, color, birth, sex, shift: shift || 'Monday'})
+        const {user, name, phone, shift} = this.props;
+        this.props.petCreate({user, name, phone, shift : shift || 'Monday'})
     }
 
     render() {
@@ -180,7 +179,6 @@ class PetCreate extends Component {
                                 justifyContent: 'flex-start',
                             }}>
                                 <Radio selected={ this.state.sex === 'Male' }  
-                                    theme={myTheme}
                                     onPress={(value) => {this.setState({sex:'Male'}) } }/>
                                 <Text style={{paddingLeft: 20}}>Male</Text>
                             </View>
