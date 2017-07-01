@@ -12,12 +12,13 @@ export  const petUpdate = ({prop, value}) => {
 export const petCreate = ({user, name, phone, shift}) => {
     return (dispatch) => {
         console.log(user.data.auth_key);
+        console.log(user.data);
         fetch('http://api.animal-id.info/homeless_v1/animal', {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + user.data.auth_key
             },
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 "breed": "BreedNone",
                 "sex": 0,
                 "nickname": "nickName",

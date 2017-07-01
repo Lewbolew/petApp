@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ListView} from "react-native";
+import {ListView, Dimensions} from "react-native";
 import {connect} from "react-redux";
 import {petsFetch} from "../actions";
 import ListItem from "./ListItem";
@@ -31,12 +31,21 @@ class PetListComponent extends Component {
     }
 
     renderRow(pet) {
-        return <ListItem pet={pet}/>
+        return (
+            <ListItem pet={pet}/>
+        );
     }
 
     render() {
         return (
-            <ListView enableEmptySections dataSource={this.dataSource} renderRow={this.renderRow}/>
+            <ListView enableEmptySections 
+                dataSource={this.dataSource} 
+                renderRow={this.renderRow}
+                automaticallyAdjustContentInsets={false} 
+                style = {{
+                    marginTop: 0,
+                    backgroundColor:'#ebeef0',
+                }}/>
         );
     }
 }

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {petUpdate, petCreate} from '../actions';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {
     CardItem,
     Body,
@@ -23,8 +22,9 @@ import {
     ListItem,
     CheckBox
 } from 'native-base';
-//import myTheme from '../Themes/myTheme.js';
-//var Camera = require('react-native-camera-android');
+import myTheme from '../Themes/myTheme.js';
+import Camera from 'react-native-camera';
+import { Actions } from 'react-native-router-flux';
 
 //-------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ class PetCreate extends Component {
 
     };
 
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.props = {
             sex: null,
@@ -87,7 +87,7 @@ class PetCreate extends Component {
             puppy: false,
 
         };
-    }
+    }*/
 
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
@@ -123,12 +123,19 @@ class PetCreate extends Component {
                 backgroundColor:'#ebeef0',
             }}>
                 <Content style={{
-                    backgroundColor:'#fff',
-                    width: Math.min(width, 300),
-                    marginLeft: (width - Math.min(width, 300))/2
+                    backgroundColor:'#fff', 
+                    marginLeft: (width - Math.min(width, 300))/2,
+                    width: Math.min(width, 300)
                 }} showsVerticalScrollIndicator={false}   >
-                    
-                    <Separator bordered style={{height: 60}}>
+
+                    <TouchableOpacity
+                        style={{}}
+                        onPress={() => Actions.сameraView()}
+                      >
+                        <Text style={{fontSize: 15, color: 'grey'}}>Photo</Text>
+                    </TouchableOpacity>
+
+                    <Separator bordered style={{height: 60}}> 
                         <Text style={{fontSize: 15, color: 'grey'}}>COORDINATES</Text>
                     </Separator>
 
@@ -179,6 +186,7 @@ class PetCreate extends Component {
                                 justifyContent: 'flex-start',
                             }}>
                                 <Radio selected={ this.state.sex === 'Male' }  
+                                    theme={myTheme}
                                     onPress={(value) => {this.setState({sex:'Male'}) } }/>
                                 <Text style={{paddingLeft: 20}}>Male</Text>
                             </View>
@@ -423,7 +431,7 @@ class PetCreate extends Component {
                                 paddingBottom: 8
                             }}>
                                 <Radio selected={ this.state.size === 'Large' }      
-                                        onPress={(value) => {this.setState({healthConditione:'Large'}) } }/>
+                                        onPress={(value) => {this.setState({size:'Large'}) } }/>
                                 <Text style={{paddingLeft: 20}}>Large (from 65cm)</Text>
                             </View>
                         </View>

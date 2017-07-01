@@ -41,9 +41,26 @@ export  const  loginUser = ({email, password}) => {
             ).done()
     };
 };
+
+export  const  logoutUser = () => {
+    return (dispatch) =>  {
+        dispatch({type: LOGGING});
+        fetch('http://api.animal-id.info/homeless_v1/auth/logout', {
+            method: 'post',
+            headers: {
+                'Authorization': 'Bearer ' + user.data.auth_key
+            },
+        }).then((response) => response.json())
+            .then((responseData) => {
+                    Actions.auth({type: 'reset'});
+                }
+            ).done()
+    };
+};
+
 const liginUserSuccess = (dispatch, data) =>{
     dispatch({type: LOGIN_USER_SUCCESS, payload: data});
-    Actions.main();
+    Actions.main({type: 'reset'});
 };
 const loginUserFail = (dispatch) => {
     dispatch({

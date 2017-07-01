@@ -64,8 +64,8 @@ class LoginForm extends Component {
         var {height, width} = Dimensions.get('window');
         return (
             <Container>
-                <Content style={{paddingTop: 30}}>
-                    <View style={{paddingLeft: 50, paddingRight: 50}}>
+                <Content style={{paddingTop: 25}}>
+                    <View style={{paddingLeft:  Math.max((width-500)/2, 50), paddingRight:  Math.max((width-500)/2, 50)}}>
                         <View style={{alignItems: 'center'}} >
                             <Image
                                 style={{resizeMode:'contain', width: Math.min(width-100, 500)}}
@@ -81,12 +81,13 @@ class LoginForm extends Component {
                                     />
                                 </Item>
                             </View>
-                            <View>
+                            <View style={{paddingTop: 15}}>
                                 <Item floatingLabel>
                                     <Label>Password</Label>
-                                    <Input secureTextEntry={true}
-                                           onChangeText={this.onPasswordChange.bind(this)}
-                                           value={this.props.password}
+                                    <Input defaultsecureTextEntry
+                                        secureTextEntry={true}
+                                        onChangeText={this.onPasswordChange.bind(this)}
+                                        value={this.props.password}
                                     />
                                 </Item>
                             </View>
@@ -96,7 +97,12 @@ class LoginForm extends Component {
                         </Form>
 
 
-                        <Text style={styles.errorTextStyle}>
+                        <Text style={{
+                            marginTop: 5,
+                            fontSize: 15,
+                            alignSelf: 'center',
+                            color: 'red'
+                        }}>
                             {this.props.error}
                         </Text>
 

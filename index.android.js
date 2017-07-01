@@ -4,3 +4,5 @@ import {
 import App from './src/App';
 
 AppRegistry.registerComponent('newStart', () => App);
+console.disableYellowBox = true;
+
